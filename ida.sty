@@ -1,0 +1,95 @@
+\ProvidesFile{ida.sty}[2007/01/23 style definition for IDA v.0.1]
+
+\gdef\@author{No Author Given}
+\gdef\@title{No Title Given}
+\gdef\@subtitle{No subtitle Given}
+\gdef\@supervisor{No Supervisor Given}
+\gdef\@course{Final Year Project, Advanced level, 30hp}
+\gdef\@semester{No Semester Given}
+
+\newcommand\subtitle[1]{\def\@subtitle{#1}}
+\newcommand\course[1]{\def\@course{#1}}
+\newcommand\supervisor[1]{\def\@supervisor{#1}}
+\newcommand\semester[1]{\def\@semester{#1}}
+
+\newcommand\histitle{\par
+  \begin{titlepage}%
+    %\null\vfil
+    \noindent\includegraphics[width=5.29cm]{logo.pdf}\newline
+    {\sf\ifLanguageInUse{swedish}
+       {Institutionen f\"or kommunikation och information}
+       {School of Humanities and Informatics}}
+    \newline
+    {\sf \@course}\newline
+    {\sf \@semester}
+    \vskip 60\p@
+    \begin{center}%
+      \let\newline\\
+  {\Huge \bf\sf \@title\par}
+  {\Large \bf\sf \@subtitle\par}
+  \vskip 3em%
+  {\large\bf\sf
+    \lineskip .75em%
+    \begin{tabular}[t]{c}%
+      \@author
+    \end{tabular}\par}%
+  \vskip 30em%
+  \vfil\null
+    \end{center}%
+  \end{titlepage}
+
+%\thispagestyle{empty}
+\setcounter{page}{1}
+\pagenumbering{roman}
+\pagebreak
+
+\begin{center}
+  {\bf\sf\Large\@title\\
+   \large\@subtitle}
+\end{center}
+
+\ifLanguageInUse{swedish} {
+Examensrapport inl\"amnad av \@author \ till H\"ogskolan i Sk\"ovde, f\"or
+\degree \ vid Institutionen f\"or kommunikation och information.
+Arbetet har handletts av \@supervisor .\\
+
+\begin{center}{\bf\sf\large\today}\end{center}
+
+H\"armed intygas att allt material i denna rapport, vilket inte \"ar mitt eget, har
+blivit tydligt identifierat och att inget material \"ar inkluderat som tidigare
+anv\"ants f\"or erh\aa llande av annan examen.\\*\\*
+Signerat:\makebox[3in]{\hrulefill}\hspace{.5in}
+}
+{
+
+Submitted by \@author \ to the University of Sk\"ovde as a dissertation towards the
+degree of \degree \ by examination and dissertation in the School of Humanities and
+Informatics.\\
+
+\begin{center}{\bf\sf\large\today}\end{center}
+
+
+I hereby certify that all material in this dissertation which is not my own
+work has been identified and that no work is included for which a degree has
+already been conferred on me.
+
+Signature:\makebox[3in]{\hrulefill}\hspace{.5in}
+
+}
+\pagebreak
+}
+
+\newcommand\sAbstract{\par
+\begin{center}
+  {\bf\sf\Large\@title\\
+   \large\@subtitle}\\
+\vskip 4em
+{\large\bf\sf\abstractname}
+\end{center}
+}
+
+\newcommand\eAbstract{
+\pagebreak
+}
+\endinput
+

@@ -1,0 +1,9 @@
+%!TEX root = /Users/high/Documents/School/Thesis/thesis.tex
+\section{Introduction}
+\label{sec:intro}
+
+When using distributed databases, replication is an important factor for increasing reliability and availability. A distributed database system needs to be fault tolerant so that if any database node is unavailable, the application select a new one without need for client interaction. 
+
+In replication, there exists different replication approaches. Two of them are pessimistic and optimistic replication. Pessimistic is most commonly used and guarantees mutual consistency in distributed database systems, but are to restrictive for most real-time database systems. Optimistic replication increases availability at the cost of consistency. 
+
+In a distributed real-time databases(DRTDBMS), there is a need for resource predictability. Transactions need to have predictable execution time or deadlines can be missed which can cause catastrophic consequences, e.g. losing lives.

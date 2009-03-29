@@ -1,0 +1,142 @@
+%!TEX root = /Users/high/Documents/School/Thesis/thesis.tex
+\section{Method} % (fold)
+\label{sec:method}
+
+In this chapter, methods for achieving all the objectives are discussed in more detail.
+
+\subsection{Define implementation scope for PRiDe} 
+\label{subsec:impl_bound}
+
+A literature analysis of alternative protocol specifications is conducted to achieve domain knowledge and protocol attributes about PRiDe. The protocol specification will include features that are used by PRiDe, both required and optional features to guarantee replication correctness. 
+
+\subsection{Implement PRiDe on a given platform} 
+\label{subsec:create_implementation}
+
+Two alternatives have been identified for an implementation that follows the DeeDS architecture.
+
+\begin{description}
+ 
+\item[Create a layer on top of Berkley DB] \
+	
+A implementation of PRiDe will be implemented on top of Berkley DB, using Berkley DB as local database with replication disabled in Berkley DB. This type of implementation has also been performed in Dynamo, as described by \cite{Dynamo2007}. In Dynamo, BerkleyDB acts as local database manager with no replication support and the replication is done by a upper layer. Dynamo supports optimistic replication so that writes can always be performed(e.g. not blocked by other writes) and it supports eventual consistency so that any inconsistencies created by the replication can be resolved later. This means that Dynamo has similar features as PRiDe and motivates why PRiDe can be implemented in the same way.  
+	
+\item[Integrate in Berkley DB] \
+
+The implementation will be inserted inside Berkley DB to change the replication semantics of Berkley DB and to reuse some of the features that Berkley DB has. A technical report, written by \cite{kang2008}, describes that there is a number of inter-dependencies, both in the replication layer, and between the upper replication layer and lower BDB layer. These inter-dependencies are not documented at all, and will extend the development time a lot by testing and verifying the implementation since the behavior of the replication can't be derived from the documentation.
+    	
+%PRiDe will be implemented as a layer above the replication layer in Berkley DB. The protocol will interpret transactions coming from  Berkley DB, and perform protocol specific instructions and then send it to the replication layer in BerkleyDB. \cite{kang2008} argues that since Berkley DB was designed for single-master replication, there are a number of inter-depedencies that make it hard to modify the replication layer.
+\end{description} 
+
+%\subsection{Extend platform for evaluation} % (fold)
+%\label{sub:extend_framework}
+
+%\subsubsection{Requirements on the platform} % (fold)
+%\label{ssub:demands_on_a_framework}
+
+%The framework should have the same features as PRiDe has (or as close as possible). This means that the framework should have support for eventual consistency, multi-master replication, and transactions. These are features that are central to the PRiDe protocol.
+
+%The framework should also be extendable since if there are some features that are missing, there should be easy to implement on the framework. 
+
+
+%\subsubsection{Review and selection of platforms} % (fold)
+%\label{ssub:rev_of_framework}
+
+%There exists a number of frameworks that are suitable for this type of extension based on their features:
+
+%\begin{description}
+%	\item[Berkley DB] 
+%		Berkley DB is open-source distributed database, which matches the requirement about extendability, since the source-code can be modified. Berkley DB supports single-master replication, which is close to what we want to have, that is multi-master replication.  Berkley DB also supports transactions which also are needed for the experiment. 
+	
+%	\item[Polyhedra] 
+%		Polyhedra is a distributed database. It supports transactions, in-memory data storage and single-master replication.  Polyhedra is based on a client/server architecture with cross-platform interpretability. 
+%	\item[Mimer SQL Real-Time Edition]
+%		Mimer DB is a distributed database with support for transactions, single-master replication and real-time constraints.
+%\end{description}
+
+%Table \ref{table_features} gives a summary of support for the features that are needed by DeeDS.
+
+%\begin{table}[h]
+%	\begin{tabular}{r|c|c|c|c}
+%		& \textbf{Extendable} & \textbf{Ev. Con.} & \textbf{Multi-master} & \textbf{Transactions} \\ \hline
+%		BDB & X & - & - & X \\
+%		MimerDB & - & - & - & X \\
+%		Polyhedra & - & - & - & X \\ 
+%	\end{tabular}
+%	\caption[Database features]{Table showing what features the databases support that are required by DeeDS}
+%	\label{table_features}
+%\end{table}
+
+%Given the features that each framework has, the chosen framework for this study is Berkley DB. Both Polyhedra and Mimer SQL supports both transactions and single-master replication as BerkleyDB but in both cases, there is a need for a license. Berkley DB is open-source, which means that there is no need for a license and can be modified in any way that is necessary. Since Polyhedra is based on a client/server architecture it would take longer time to extend then Berkley DB because Berkley DB is just a static library that you include in your source code which removes the time for developing the client for using the Polyhedra client library.  
+
+\subsection{Evaluate the implementation} 
+\label{subsec:experiment}
+
+\subsubsection{Evaluation definitions} % (fold)
+\label{ssub:evaluation_baseline}
+
+For the experiments, we define a baseline that we can evaluate with. This baseline consists of two systems. The first system is general distributed database(DDB) that uses single-master replication and uses a two-phase commit protocol. DDB will only be used as a baseline for discussing, and will not be used in the experiments. The second system is Berkley DB but has been extended with multi-master support, will be referenced as BDBe (Berkley DB extended). 
+
+
+% subsubsection experiment_systems (end)
+\subsubsection{Performance metrics} % (fold)
+\label{ssub:performance_metrics_discussion}
+
+When measuring performance, a number of performance metrics should be established. The metrics that are defined below have been chosen because these can (in some degree) be measured in each of the systems that are going to be used in the evaluation.
+%To be able to perform a number of performance measurements, there are different performance characteristics that need to be addressed. In this report a number of metric will be used based on the fact that these can be measured equal in  single-master, the used framework and in PRiDe. 
+
+\begin{description}
+	
+	\item[Bandwidth usage]
+
+This metric is measured can be measured in two ways. Measuring the amount of data traffic that gets transfered between two database nodes in the network or measuring the total number of data that is transfered between all the replicas in the network during the entire experiment.
+
+	\item[Execution time]
+	
+	This metric measures the time it takes to process all transactions and to the time when all replicas has the same information about all objects that have been updated. For PRiDe, this means that the time for receive all transactions, perform local integration, propagate to all the replicas, perform integration on the target replica, and finally perform stabilization on target replica. For DDB, it is the time for receiving all transactions, and performing a distributed transaction update each replica. For BDBe, it is to process all transactions and for each transaction, perform local integration on the master node, and then replicate the update to the slave replicas and perform integration on the each slave. When only one node receives the updates. If all nodes can receive updates, execution time for BDBe is the time to receive all transactions, send all transactions to the master node, propagate the updates to the replicas and then integrate the update on the target replica.
+	 
+	%This is the time it takes for each database node to process each transaction and perform a commit or abort on the transaction, and then replicate the update to the other database nodes and integrate the update and the database node. 
+	
+	\item[Stabilization time]
+	This mean the time from that a update has reached a replica and until the update is stable on that replica. This is only measurable on PRiDe because there is no stabilization in DDB, and in BDBe, the stabilization time is from the time when the local integration has performed on master nod and until the update has been propagated to the target replicas and have been integrated on target replicas. But these is not stabilization, it is just replication of an update.
+	
+	In PRiDe, this can be measured on individual node, by measuring the time it take from that an update has been locally integrated on the replica and to the time when the update have been moved to the stable prefix. This includes the time it takes to perform conflict resolution. 
+	
+	The type of measurements can be compared between different replicas. This means that measurements can done by the maximum time, minimum time, average time, when comparing with all replicas in the network. 
+	    
+	%This is the time it take for each database to process each transaction, commit or abort locally and then replicate the update to the remove database nodes, and integrate the update, and finally pertform stabilization on the updates so that all database replicas have the same information about all objects.
+	 
+	\item[Blocking time] 
+	
+	When only one node (master node) is allowed to perform updates, the blocking time for PRiDe is only the time it takes to make a integration of the update on the local node. For DDB, the blocking time is the time when the transaction waits until all (or some) of the replicas has integrated the update. For BDBe, this means that blocking time will just be the local blocking time for performing the commit.
+	When independent updates are allowed, it is the same blocking time for PRiDe, but for BDBe, each transaction need to wait for the transaction to be send to the master node and integrate the update on the master and then receive a reply. The blocking time for BDBe can be affected by network latency and network partitioning. For DDB, independent updates can't be used since only one node (master node) can receive updates.
+	
+\end{description}
+
+%\begin{figure}[th]
+%\centering
+%\includegraphics[scale=0.50]{PRiDe_metrics.pdf}
+%\caption{Transverse momentum distributions}\label{fig:testing}
+%\end{figure}
+
+\subsubsection{The experiments} % (fold)
+\label{ssub:the_experiments}
+
+Three experiments have been identified that evaluates the defined performance metrics. The first two are required for this experiment, and the third experiment is optional based on the fact that is performs a validation, and not a comparison:
+
+\begin{enumerate}
+
+	\item \textbf{Single-master replication} \\ In this experiment, execution time and bandwidth usage will be measured and only one node will receive the transactions. For DDB, and BDBe this means that all transactions will be received on the master node. This is to measure ho much overhead PRiDe has when performing stabilization, since DDB and BDBe doesn't need to perform any stabilization since they guarantees mutual consistency. The hypothesis is that PRiDe will have none or a small overhead since every update creates a new generation that needs to be stabilized in a stabilization phase.
+	
+	\item \textbf{Multi-master replication} \\ In this experiment, transactions will be received on all nodes in the network for evaluating how BDBe and PRiDe handle independent updates. Execution time, blocking time and bandwidth usage will be measured. Since BDBe have some blocking time during each transaction, PRiDe should have higher throughput of updates that are locally integrated into the node that receives the update.  
+	
+%In this experiment, there is an interest to measure blocking time, since every node that is not a master, needs to wait until a transaction has been received, committed and propagated until next transaction can be processed. Bandwidth usage is also a interesting factor here, because this test should show that PRiDe uses less bandwidth since each transaction can be commit locally, so there is no need to send it to a master node. Execution time will also be measured since this is of interest to find out how long it takes to get all transactions performed on all nodes. A hypothesis here is that PRiDe should perform this experiment better since BerkleyDB needs an extra transfer to the master node on each transaction. 
+	   
+	\item \textbf{Stabilization resource usage} \\ In this experiment, the stabilization time will be measured. This will only conducted with PRiDe to evaluate if there are any spikes in resource usage when performing stabilization and conflict resolution. In this experiment .
+	
+%Last experiment the idea is mainly to measure the stabilization time. For PRiDe, this means that the time it takes to stabilize all object and resolve any conflicts. In BerkleyDB, this means measuring the time it takes to process all updates for the master and then propagate the information to the slaves. 
+	 
+\end{enumerate}
+
+%Next experiment should be to see how PRiDe performs when using distributed masters in a network. Since BerkleyDB only has support for single-master, it must send each transaction to the master node so that master node can make a commit and then propagate the update to all nodes in the network and finally report back to the database node that send the transaction that it was committed or aborted.  A hypothesis here is that this should take longer to performs this task then with PRiDe because in PRiDe all database nodes are allowed to run transactions independent of each other. In the case of BerkleyDB a increase in execution time and bandwidth usage should be shown because two additional messages transactions needs to be performed.  
+
+%A final experiment should be to test how PRiDe is performed in database network with multi-master replication. The purpose is manly to measure stabilization time but execution time and bandwidth usage should also be measured. Stabilization time can be measured in different ways. It can be measured on each individual node or measure it from start until all database nodes have propagated all updates and have integrated all updates on their local copy. Measuring on a individual node doesn't give any result that can be used since it depends on network latency when each database node receives its messages. 

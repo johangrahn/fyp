@@ -1,0 +1,83 @@
+\documentclass[12pt]{article}
+\usepackage[swedish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{natbib}
+
+\begin{document}
+	
+\title{Förslag till examensarbete - \\ Utvärdera PRiDe in en distribuerad databas}
+\author{Johan Grahn \\ a05johgr@student.his.se}
+
+\maketitle
+\thispagestyle{empty}
+
+\newpage
+\thispagestyle{empty}
+\tableofcontents
+
+\newpage
+
+\setcounter{page}{1}
+
+\section{Introduktion}
+
+\subsection{Distribuerade databaser} 
+\label{sec:distdb}
+
+I en distribuerad databas vill man kunna replikera datan för att öka tillgängligheten av datan och för att öka tillförlitligheten på systemet som använder databasen för lagring.  Detta sköts vanligtvis av pessimistiska replikeringsprotokoll som garanterar att datan är alltid konsistent vid alla noder innan en commit sker. Detta kallas för \"Two-phase commit protocol\". 
+
+\subsection{DeeDS}
+\label{sub:deeds}
+DeeDS är en distribuerad aktiv realtidsdatabas arkitektur. Målet med DeeDS är att kunna användas i system med realtidskrav på lagringen av data. Därför har mycket arbetet runt DeeDS varit att ta bort alla opålitliga delar som till exempel disk access och distribuerade transaktioner \cite[]{deeds}. Detta görs genom att hela databasen lagras det primära minnet och alla transaktioner utförs lokalt och sen propageras ut till resten av noderna.
+
+\subsection{PRiDe (Protocol for Replication in DeeDS)}
+\label{sub:pride}
+
+PRiDe är ett optimistiskt replikeringsprotokoll där transaktioner utförs lokalt för att sedan propageras ut till and noder och därför upprätthålla ACID egenskaper lokalt \cite[]{Syber2007}. Detta gör att klienten får ett svar direkt från databasen om transaktionen godkändes. Efter detta propageras transaktionerna till de andra noderna för att sedan lösa eventuella konflikter som uppstår i systemet.
+
+PRiDe bygger på Continuous Convergence (CC) protokollet \cite[]{Syber2007}. Detta gör att PRiDe får tre egenskaper:
+
+\begin{itemize}
+	\item Lokal konsistens
+	\item Lokal förutsägbarhet
+	\item Global slutlig konsistens
+\end{itemize}
+
+Lokal konsistens och lokal förutsägbarhet är för att kunna tillfredsställa att transaktioner är förutsebara och har tillräcklig Worst-Case Execution Time (WCET). Global slutlig konsistens är för att om antalet inkommande uppdateringar skulle vara noll, skulle hela systemtet till slut vara konsistent, d.v.s. alla kopior i nätverket skulle ha samma korrekta data.
+
+
+\subsection{Problembeskrivning} % (fold)
+\label{sub:problembeskrivning}
+
+\cite[]{Syber2007} skriver att ingen testning av PRiDe har skett med ett verkligt system som kan styrka PRiDE:s användande. Detta gör att man inte riktigt kan se hur PRiDe skulle kunna uppföra sig i ett verkligt system.
+
+I den nuvarande implementationen av DeeDS som används i ett trådlöst sensornätverk använder sig av \"Single-master\"-replikering av data på varje nod. Detta innebär att vid varje transaktion måste noden som gör updateringen skicka denna till varje nod i nätverket. Detta göra att om det kommer en stor mängd uppdateringar kan det bli stora fördröjningar i systemet, vilket inte är önskevärt.  
+
+\newpage 
+
+\section {Mål}
+
+Målet med detta examensarbete att undersöka om det går att ersätta den BerkleyDB-implmentation som används i DeeDS med en implementation av PRiDe protokollet. En analys kommer att genomföra för att se om det är möjligt, och om det är möjligt med en implmentation, analysera vilken overhead som protokollet ger jämnfört med BerkleyDB-implementationen. Focus i detta exmansarbete kommer att vara distributionen och replikeringen av data. Realtidsaspekten kommer inte att analyseras genom att i den testbed som kommer att användas under exjobbet är det inte praktiskt omöjligt att garantera realtidsegenskaper. Det kommer även att genomföras en analsys av skalbarheten av PRiDe, d.v.s. att till exempel mäta antalet databasnoder som deltar i nätverket och hur många meddelanden som skickas för att kunna se hur skalbarheten påverkas. 
+
+\newpage 
+
+\section{Handledare}
+
+De handledare som jag vill ha till detta examensarbete är (ordnade efter preferens):
+
+
+
+\begin{enumerate}
+	\item Sanny Syberfeldt [IKI]  
+	\item Gunnar Mathiason [IKI]
+	\item Jonas Mellin [IKI]
+\end{enumerate}
+
+\newpage
+
+\bibliographystyle{agsm}
+\addcontentsline{toc}{section}{References}
+\bibliography{proposal}
+
+
+\end{document}

@@ -1,0 +1,82 @@
+%!TEX root = /Users/high/Documents/School/Thesis/thesis.tex
+\section{Background} % (fold)
+\label{sec:background}
+
+\subsection{Transactions in Database systems}
+\label{sub:db}
+
+A transaction, as defined by \cite[]{Elmasri2004}, is an atomic unit of work that is either completed in its entirety or not at all. A transaction contains a number of operations that can either write to the database or read from the database. 
+
+When a database uses transactions, there are a number of states that the database needs to record about each transaction \cite[]{Elmasri2004}:
+
+\begin{description}
+	\item[Begin] This means that a transaction have been started
+	\item[Read or Write] A read or write operation that is performed inside the transaction
+	\item[End] Marks the end of the transaction when all read and write operations have been performed that is defined inside the transaction
+	\item[Commit] This stores the operations permanently into the database 
+	\item[Rollback or Abort] This state says that the transaction should be aborted and all operations inside the transaction need to be undone.
+\end{description}
+
+% The database store a log with all operations that have been performed inside the transaction, so the database can undo all operations if a rollback is performed or if a commit is performed, the database knows what operations that are permanently stored in the database. 
+
+Transactions should have the ACID properties \cite[]{Haerder83}, so that each transaction doesn't affect another transactions validity. This properties are defined as:
+
+\begin{description}
+	\item[Atomicity] This means that all operations that are defined in the transaction are performed, or none of the operations are performed.
+	\item[Consistency] This means that the database should be in a consistent state after the transaction has performed the operations. No violations, for example in table constrains, can occur. 
+	\item[Isolation] The transaction are not interfered by any  other transaction that are executing concurrently. This is to prevent any concurrency problems.
+	\item[Durability] This means that when the transaction is committed, the changes that where made in the database needs to be stored permanently, and the changes can't be lost. 
+\end{description}
+
+
+\subsection{Distributed Database Systems} % (fold)
+\label{sec:distributed_database_systems}
+
+A definition, given by \cite{prins99}, is that a distributed database system(DDBMS) is a collection of multiple logically interrelated databases distributed over a network. DDBMS has number of advantages over central database systems. This includes data independence, network transparency and replication transparency. Data independence means that the physical location of data is not known to the user application. Network transparency means that network details are not known to the user application and sees the database as local. Replication transparency means that data is replicated without user interaction for performance, reliability and availability.
+
+In a DDBMS, when a transaction needs to update more then one node in the network, a distributed transaction is used. Distributed transactions are a definition of nested or flat transactions \cite[]{Coulouris2005dsc}. Flat transactions means that updates are performed on a number of nodes that are linked to the coordinator of the transaction. Nested transactions are when updates on a number of nodes that are linked to the coordinator, creates updates that need to be performed on another number of nodes in the network building a tree-like structure. 
+
+\subsection{Database Consistency} % (fold)
+\label{sub:consistency}
+
+For replication, different consistency guarantees can be given depending on what type of replication that is being used. In pessimistic replication, mutual consistency is guaranteed. This is used when applications doesn't tolerate any inconsistent data between replicas. Optimistic replication only guarantees eventual consistency, which means that the replicas will eventually be consistent if there no new updates are send to any replica. One problem with eventual consistency is that an application need to tolerate occasional conflicts \cite[]{saito2005}. This mean that the application needs to tolerate that it sometimes reads unstable data and that a value can be updated in the future until it is stable. A stable value is a value that is permanently stored in the database and will be consistent on all replicas.
+
+
+\subsection{Replication} 
+\label{ssub:replication}
+
+In distributed databases, replication is used to increase availability and fault-tolerance of the system. In this report, a replica is a copy of a object located on the same node or on another node. A client is an application that uses some or all data that is stored inside the database. 
+
+There exists a number of different type of replication styles. Most commonly used are \emph{pessimistic replication} and \emph{optimistic replication}. Pessimistic replication is most commonly used in database systems and the idea is to maintain single-copy consistency, which means that every replica are consistent with each other. This type of replication is to restrictive since a client are not allowed to read from a replica unless that replica is updated with the latest data. 
+
+Optimistic replication uses a more ``optimistic'' approach. The idea is to allow replicas to diverse at first, and resolve any conflicts that have occurred later. In optimistic replication, the update is committed locally first, and then updated are propagated to the other replicas, integrate the update in the replica and lastly performs conflict resolution \cite[]{saito2005}. This increases the availability of each replica and the protocol can handle network partitioning.
+
+When using optimistic replication, there are a number of different configurations in how many \emph{replica writers} that system has \cite[]{saito2005}. \emph{Single-master} is when only on replica writer is allowed. All updates are send to the same master that updates locally and then replicates to all other replicas.  This type of architecture is simple, but has low fault-tolerance since the master is a single point of failure and all requests need to be processed and replicated by the master. \emph{Multi-master} is when the systems allows more than one replica writer. In multi-master, all updates are performed locally on each replica and are then send to the other replicas in the background. This allows better scalability and availability, but at the cost of consistency. Multi-master guarantees only eventual consistency, which means that the client must tolerate .   	   
+
+
+\subsection{Distributed Real-time Database Systems} % (fold)
+\label{sub:subsection_name}
+
+In a distributed real-time databases(DRTDBMS), there is a need for resource predictability. Transactions need to have predictable execution time or deadlines can be missed which can cause catastrophic consequences, e.g. losing lives. When performing distributed transactions, there is a need to know how long execution time each transaction has. With a distributed real-time database, it is hard to calculate WECT since the network is unpredictable. Network partitioning and packet losses can have huge affect distributed transactions. One solution to this that is suggested by \cite{deeds}, is to remove the unpredictability of distributed transactions by allowing replicas to diverse in data and only guarantee local predictability.  
+
+\subsection{Conflict resolution} % (fold)
+\label{sub:conflict_resolution}
+
+When performing conflict resolution on conflicting updates, most systems tries to revert the system to a previous state that was considered to be safe, called \emph{backward} conflict resolution. The problem is that embedded and real-time systems some actions can be external and can't easily be undone (drilling a hole into a wall for example). This creates problems when trying to abort a transaction. 
+With \emph{forward} conflict resolution, actions are performed to take the system into a new state that is considered to be safe.      
+
+% subsection conflict_resolution (end)
+
+\subsection{PRiDe}
+\label{sub:pride}
+
+The PRiDe protocol used in DeeDs DDBMS \cite[]{deeds}, is a optimistic replication protocol with support for forward conflict resolution \cite[]{Syber2007}. 
+
+PRiDe builds on the Continuous Convergence(CC) protocol \cite[]{consistency2005}, which is designed to meet three database requirements: 
+\begin{description}
+	\item[Local consistency] means that the transactions should generate a consistent state on the local node
+	\item[Local predictability] Means that the transaction should have predictable resource usage and execution time to meet the requirements of realtime-systems.  
+	\item[Eventual global consistency] means that the database should eventually be consistent, if there is no new updates that are send to the database nodes.  
+\end{description}    
+
+In PRiDe, eventual global consistency is achieved by the fact that  updates are continuously propagated to all replicas in the network and integrated at the replica . All updates are continuously and optimistically resolved, meaning that conflicts are resolved when they are discovered during the stabilization phase. 

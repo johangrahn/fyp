@@ -1,0 +1,77 @@
+%
+%  Thesis 
+%
+%  Created by Johan Grahn on 2009-01-28.
+%  Copyright (c) 2009 Högskolan i Skövde. All rights reserved.
+%
+\documentclass[MSc, ida]{histhesis}
+
+% Setup for fullpage use
+%\usepackage{fullpage}
+
+% Uncomment some of the following if you use the features
+%
+% Running Headers and footers
+\usepackage{fancyhdr}
+
+% Be able to rotate tables
+\usepackage{rotating}
+
+% Multipart figures
+%\usepackage{subfigure}
+
+% More symbols
+%\usepackage{amsmath}
+%\usepackage{amssymb}
+%\usepackage{latexsym}
+
+% Surround parts of graphics with box
+\usepackage{boxedminipage}
+
+% Package for including code in the document
+\usepackage{listings}
+
+% This is now the recommended way for checking for PDFLaTeX:
+\usepackage{ifpdf}
+
+% Set equal margins on book style
+%\setlength{\oddsidemargin}{53pt}
+%\setlength{\evensidemargin}{53pt}
+%\setlength{\marginparwidth}{57pt}
+%\setlength{\footskip}{30pt}
+
+\usepackage[utf8]{inputenc}
+\usepackage{natbib}
+
+\title{Evaluation of PRiDe}
+\subtitle{A performance evaluation}
+\author{Johan Grahn}
+%\course{Magisterexamen, Avancerad nivå, 30 hp}
+\supervisor{Gunnar Mathiason}
+\semester{Spring 2009}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+
+(<<<< Write an abtract >>>>)
+
+\end{abstract}
+\tableofcontents
+\thispagestyle{plain}
+\listoftables
+\newpage
+\input{introduction}
+\newpage
+\input{background}
+\newpage
+\input{problemstatement}
+\newpage
+\input{method}
+\newpage
+
+\bibliographystyle{agsm}
+\addcontentsline{toc}{section}{Referenses}
+\bibliography{thesis}
+
+\end{document}

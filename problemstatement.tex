@@ -1,0 +1,51 @@
+%!TEX root = /Users/high/Documents/School/Thesis/thesis.tex
+
+\section{Problem description}
+\label{sec:problem_description}
+
+%In a distributed database system that uses single-master replication, receive all updates to a specified database node, called master node, performs the updates locally, and then replicate data to the other database nodes in the network. There are two problems with this approach, predictability and blocking time. 
+
+%When a database node sends data to the master database node, the master node can disconnect due to network partitioning or hardware failure. Then the database node needs to wait until the master database node returns or a new master is selected. The time that the database node must wait can't  and then it is not suitable for realtime requirements.
+
+%When a database node is performing a distributed transaction, all other update transactions is blocked until the distributed transaction has committed or aborted. Since the blocking time isn't bounded, then local predictability can't be guaranteed.  
+The PRiDe protocol have currently been evaluated in two ways: In a VAD(Visual Aid Designer)er tool \cite{Syber2007} and in a protocol extension, called pPRiDe \cite[]{Olby07}. 
+
+No full performance evaluation has been conducted, in terms of resource usage and execution. The resource usage is vital for protocols like PRiDe since the idea is that PRiDe should be used in real-time systems where the resource usage needs to be predictable and the execution time needs to be bounded. 
+
+\subsection{Aim}
+\label{subsec:aim}
+
+The aim with this final year project is to investigate how well PRiDe performs in a real system, based on a number of defined performance metrics.  
+
+\subsection{Motivation}
+\label{subsec:motive}
+
+Since the PRiDe protocol has only been evaluated in a simulation, there is a need for an investigation of performance and resource usage in a realistic situation \cite[]{Syber2007}.
+
+\subsection{Objectives} 
+\label{subsec:objectives}
+
+To be able to fulfill our aim, the following objectives needs to be meet:  
+
+\begin{description}
+
+	\item[Define implementation scope for PRiDe] \
+
+	There are a number of features of the PRiDe protocol that take to long to implement for the given time frame for this research project. A analysis should be performed to see what features that are needed in an implementation for performance experiments, in the time frame for the project.
+
+	\item[Implement PRiDe on a platform] \
+
+	For an implementation of PRiDe, a well-known distributed database platform should be used such that functionality for support database operations are already implemented and can be reused. The term platform in this project is defined as a software component that supports as much functionality as possible for an implementation of the PRiDe protocol. 
+
+	\item[Create baseline for evaluation] \
+
+	A baseline needs to be defined to be able to create and compare experiments to evaluate the performance.  
+
+	%The platform needs to be extended with distributed-master support. For an evaluation of PRiDe, support for independent updates is required. and for distributed transactions that allows updates of master data replicas from slave database nodes.
+
+	\item[Evaluate the performance] \
+
+	When evaluating the performance a number of performance metrics needs to be specified to be able to define the use for each experiment. A number of experiments should be defined to be able to measure each metric, such that measurements can be made to compare performance.  
+
+
+\end{description}
