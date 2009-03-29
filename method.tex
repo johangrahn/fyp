@@ -10,8 +10,11 @@ In this chapter, methods for achieving all the objectives are discussed in more 
 
 A literature analysis of alternative protocol specifications is conducted to achieve domain knowledge and protocol attributes about PRiDe. The protocol specification will include features that are used by PRiDe, both required and optional features to guarantee replication correctness. 
 
-\subsection{Implement PRiDe on a given platform} 
+\subsection{Implement PRiDe on a  platform} 
 \label{subsec:create_implementation}
+
+The DeeDS architecture and the PRiDe protocol have a number of requirements that are required in a implementation. 
+First, an analysis is performed to determine these requirements. Secondly, a list of distributed database candidates that fulfill these requirements as good as possible is produced. Finally, a decision is made on which platform to used based on the requirements.
 
 Two alternatives have been identified for an implementation that follows the DeeDS architecture.
 
@@ -24,9 +27,17 @@ A implementation of PRiDe will be implemented on top of Berkley DB, using Berkle
 \item[Integrate in Berkley DB] \
 
 The implementation will be inserted inside Berkley DB to change the replication semantics of Berkley DB and to reuse some of the features that Berkley DB has. A technical report, written by \cite{kang2008}, describes that there is a number of inter-dependencies, both in the replication layer, and between the upper replication layer and lower BDB layer. These inter-dependencies are not documented at all, and will extend the development time a lot by testing and verifying the implementation since the behavior of the replication can't be derived from the documentation.
-    	
-%PRiDe will be implemented as a layer above the replication layer in Berkley DB. The protocol will interpret transactions coming from  Berkley DB, and perform protocol specific instructions and then send it to the replication layer in BerkleyDB. \cite{kang2008} argues that since Berkley DB was designed for single-master replication, there are a number of inter-depedencies that make it hard to modify the replication layer.
-\end{description} 
+ 
+\end{description}
+   	
+PRiDe will be implemented as a layer above the replication layer in Berkley DB. The protocol will interpret transactions coming from  Berkley DB, and perform protocol specific instructions and then send it to the replication layer in BerkleyDB. \cite{kang2008} argues that since Berkley DB was designed for single-master replication, there are a number of inter-depedencies that make it hard to modify the replication layer.
+%\end{description} 
+
+\subsection{Create baseline for evaluation} % (fold)
+\label{sub:extend_framework}
+
+A baseline is a comparable implementation to PRiDe. This implementation needs to support \emph{distributed-master} replication so that independent updates are allowed. Distributed-master means that there are several replicas in the network are allowed to write, but each write-request are sent to the master node using a distributed transaction. 
+
 
 %\subsection{Extend platform for evaluation} % (fold)
 %\label{sub:extend_framework}

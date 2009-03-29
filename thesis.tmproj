@@ -34,9 +34,7 @@
 			<key>filename</key>
 			<string>method.tex</string>
 			<key>lastUsed</key>
-			<date>2009-03-29T08:35:02Z</date>
-			<key>selected</key>
-			<true/>
+			<date>2009-03-29T14:38:08Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -61,12 +59,8 @@
 			<string>introduction.tex</string>
 			<key>lastUsed</key>
 			<date>2009-03-27T13:40:08Z</date>
-		</dict>
-		<dict>
-			<key>filename</key>
-			<string>Changelog</string>
-			<key>lastUsed</key>
-			<date>2009-03-14T07:33:24Z</date>
+			<key>selected</key>
+			<true/>
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
@@ -106,14 +100,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>32</integer>
+				<integer>1</integer>
 				<key>line</key>
-				<integer>84</integer>
+				<integer>24</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>76</integer>
+			<integer>10</integer>
 		</dict>
 		<key>problemstatement.tex</key>
 		<dict>
