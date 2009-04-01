@@ -1,2 +1,7 @@
 *.log
 *.toc
+thesis.aux
+thesis.bbl
+thesis.blg
+thesis.lot
+thesis.pdf
