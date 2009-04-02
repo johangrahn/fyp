@@ -20,7 +20,7 @@ When a database uses transactions, there are a number of states that the databas
 
 % The database store a log with all operations that have been performed inside the transaction, so the database can undo all operations if a rollback is performed or if a commit is performed, the database knows what operations that are permanently stored in the database. 
 
-Transactions should have the ACID properties \cite[]{Haerder83}, so that each transaction doesn't affect another transactions validity. This properties are defined as:
+Transactions should have the ACID properties \cite[]{Haerder83}, so that each transaction doesn't affect another transactions validity. These properties are defined as:
 
 \begin{description}
 	\item[Atomicity] This means that all operations that are defined in the transaction are performed, or none of the operations are performed.
@@ -37,22 +37,22 @@ A definition, given by \cite{prins99}, is that a distributed database system(DDB
 
 In a DDBMS, when a transaction needs to update more then one node in the network, a distributed transaction is used. Distributed transactions are a definition of nested or flat transactions \cite[]{Coulouris2005dsc}. Flat transactions means that updates are performed on a number of nodes that are linked to the coordinator of the transaction. Nested transactions are when updates on a number of nodes that are linked to the coordinator, creates updates that need to be performed on another number of nodes in the network building a tree-like structure. 
 
-\subsection{Database Consistency} % (fold)
-\label{sub:consistency}
-
-For replication, different consistency guarantees can be given depending on what type of replication that is being used. In pessimistic replication, mutual consistency is guaranteed. This is used when applications doesn't tolerate any inconsistent data between replicas. Optimistic replication only guarantees eventual consistency, which means that the replicas will eventually be consistent if there no new updates are send to any replica. One problem with eventual consistency is that an application need to tolerate occasional conflicts \cite[]{saito2005}. This mean that the application needs to tolerate that it sometimes reads unstable data and that a value can be updated in the future until it is stable. A stable value is a value that is permanently stored in the database and will be consistent on all replicas.
-
-
 \subsection{Replication} 
 \label{ssub:replication}
 
 In distributed databases, replication is used to increase availability and fault-tolerance of the system. In this report, a replica is a copy of a object located on the same node or on another node. A client is an application that uses some or all data that is stored inside the database. 
 
-There exists a number of different type of replication styles. Most commonly used are \emph{pessimistic replication} and \emph{optimistic replication}. Pessimistic replication is most commonly used in database systems and the idea is to maintain single-copy consistency, which means that every replica are consistent with each other. This type of replication is to restrictive since a client are not allowed to read from a replica unless that replica is updated with the latest data. 
+There exists a number of different type of replication styles. Most commonly used are \emph{pessimistic replication} and \emph{optimistic replication}. Pessimistic replication is most commonly used in database systems and the idea is to maintain single-copy consistency, which means that every replica are consistent with each other and a client will always the updated data. This type of replication is to restrictive since a client are not allowed to read from a replica unless that replica is updated with the latest data. 
 
 Optimistic replication uses a more ``optimistic'' approach. The idea is to allow replicas to diverse at first, and resolve any conflicts that have occurred later. In optimistic replication, the update is committed locally first, and then updated are propagated to the other replicas, integrate the update in the replica and lastly performs conflict resolution \cite[]{saito2005}. This increases the availability of each replica and the protocol can handle network partitioning.
 
-When using optimistic replication, there are a number of different configurations in how many \emph{replica writers} that system has \cite[]{saito2005}. \emph{Single-master} is when only on replica writer is allowed. All updates are send to the same master that updates locally and then replicates to all other replicas.  This type of architecture is simple, but has low fault-tolerance since the master is a single point of failure and all requests need to be processed and replicated by the master. \emph{Multi-master} is when the systems allows more than one replica writer. In multi-master, all updates are performed locally on each replica and are then send to the other replicas in the background. This allows better scalability and availability, but at the cost of consistency. Multi-master guarantees only eventual consistency, which means that the client must tolerate .   	   
+When using optimistic replication, there are a number of different configurations in how many \emph{replica writers} that system has \cite[]{saito2005}. \emph{Single-master} is when only on replica writer is allowed. All updates are send to the same master that updates locally and then replicates to all other replicas.  This type of architecture is simple, but has low fault-tolerance since all requests need to be processed and replicated by the master which means that the master is a single point-of-failure. \emph{Multi-master} is when the systems allows more than one replica writer. In multi-master, all updates are performed locally on each replica and are then send to the other replicas in the background. This allows better scalability and availability, but at the cost of consistency. Multi-master guarantees only eventual consistency, which means that the client must tolerate that the data that the client reads can be changed due to a conflict resolution.   	   
+
+
+\subsection{Database Consistency} % (fold)
+\label{sub:consistency}
+
+For replication, different consistency guarantees can be given depending on what type of replication that is being used. In pessimistic replication, mutual consistency is guaranteed. This is used when applications doesn't tolerate any inconsistent data between replicas. Optimistic replication only guarantees eventual consistency, which means that the replicas will eventually be consistent if there no new updates are send to any replica. One problem with eventual consistency is that an application need to tolerate occasional conflicts \cite[]{saito2005}. This mean that the application needs to tolerate that it sometimes reads unstable data and that a value can be updated in the future until it is stable. A stable value is a value that is permanently stored in the database and will be consistent on all replicas.
 
 
 \subsection{Distributed Real-time Database Systems} % (fold)
