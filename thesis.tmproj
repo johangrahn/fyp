@@ -28,67 +28,81 @@
 			<key>filename</key>
 			<string>thesis.tex</string>
 			<key>lastUsed</key>
-			<date>2009-03-27T13:37:44Z</date>
+			<date>2009-04-02T14:48:06Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>method.tex</string>
 			<key>lastUsed</key>
-			<date>2009-03-29T14:38:08Z</date>
+			<date>2009-04-02T14:48:11Z</date>
+			<key>selected</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>problemstatement.tex</string>
 			<key>lastUsed</key>
-			<date>2009-03-29T08:35:02Z</date>
+			<date>2009-04-02T14:48:11Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>background.tex</string>
 			<key>lastUsed</key>
-			<date>2009-03-27T13:44:34Z</date>
+			<date>2009-04-02T14:48:10Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>Notes.tex</string>
 			<key>lastUsed</key>
-			<date>2009-02-16T11:14:14Z</date>
+			<date>2009-04-02T14:26:16Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>introduction.tex</string>
 			<key>lastUsed</key>
-			<date>2009-03-27T13:40:08Z</date>
-			<key>selected</key>
-			<true/>
+			<date>2009-04-02T13:07:12Z</date>
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
 	<integer>200</integer>
 	<key>metaData</key>
 	<dict>
+		<key>Notes.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>1</integer>
+				<key>line</key>
+				<integer>2</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
 		<key>background.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>42</integer>
 				<key>line</key>
-				<integer>67</integer>
+				<integer>51</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>723</integer>
+			<integer>142</integer>
 			<key>firstVisibleLine</key>
-			<integer>53</integer>
+			<integer>42</integer>
 		</dict>
 		<key>introduction.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>233</integer>
+				<integer>95</integer>
 				<key>line</key>
-				<integer>8</integer>
+				<integer>6</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -100,28 +114,28 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>1</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>24</integer>
+				<integer>40</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>10</integer>
+			<integer>0</integer>
 		</dict>
 		<key>problemstatement.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>136</integer>
+				<integer>60</integer>
 				<key>line</key>
-				<integer>47</integer>
+				<integer>50</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>15</integer>
+			<integer>11</integer>
 		</dict>
 		<key>thesis.bib</key>
 		<dict>
@@ -158,20 +172,21 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>15</integer>
+				<integer>5</integer>
 				<key>line</key>
-				<integer>60</integer>
+				<integer>87</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>31</integer>
+			<integer>0</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
 		<string>thesis.bib</string>
 		<string>thesis.tex</string>
+		<string>Notes.tex</string>
 		<string>introduction.tex</string>
 		<string>background.tex</string>
 		<string>problemstatement.tex</string>
@@ -180,6 +195,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{464, 115}, {925, 774}}</string>
+	<string>{{186, 4}, {1070, 774}}</string>
 </dict>
 </plist>
