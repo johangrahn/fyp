@@ -5,15 +5,61 @@
 
 In this section, a description of the overall architecture that are used in the implementation will be explained in more detail.  
 
+% (end)
+
 \subsection{Concepts} % (fold)
 \label{sub:consepts}
+
 In an application that needs replication, there is a distinction between \emph{local objects} and \emph{database objects}. Local objects are temporary objects that the application uses but there is no need to store these objects for later use. Database objects are objects that are used in the application and are durable, which means that the object can't be lost if any error occurs. These objects needs to be replicated 
 
-A database object is associated with a unique identifier that is unique between all ePRiDe nodes in the network. This is means any object in a ePRiDe instance can't have the same identifier as another object on the same ePRiDe instance or on any other instance in the network.    
+A database object is associated with a unique database object identifier(DBOID) that is unique between all ePRiDe nodes in the network. This is means any logical object in a ePRiDe instance can't have the same identifier as another object on the same ePRiDe instance or on any other instance in the network.    
 
-% -----
+A database object can store primitive data types. This includes for example int, char, double. Pointer to other database objects are not handled are out of scope for this implementation since it creates more complexity in recording state of each object. One possible solution is to define a interface that has a number of operations that are handled by ePRiDe and are mapped to objects that handles the actual method that is defined in the interface.    
 
-In a system that uses ePRiDe, each node in the network is an instance of ePRiDe. These instances communicate with each other through message-passing. 
+A database object can only read and write data. Database objects are not allowed to send messages to other database objects since these messages can create inconsistency between ePRiDe instances.
+
+% (end)
+
+\subsection{Network} % (fold)
+\label{sub:network}
+
+In a system that uses ePRiDe, each node in the network is an instance of ePRiDe. These instances communicate with each other only through message-passing. 
+
+\subsection{Components} % (fold)
+\label{sub:components}
+
+Each ePRiDe instance consists of a number of components:
+
+\begin{description}
+	\item[Application] \
+		The application component is responsible for handling read and write requests that an application can make. This includes transaction commands.
+		
+	\item[Propagater] \
+		The propagater is responsible for sending updates that are in the conflict set to the other ePRiDe instances. The propagater is used  when a commit has been performed on the node and the information needs to be replicated to the other ePRiDe instances.
+		
+	\item[Receiver] \
+		This component receives propagation messages that are send from other ePRiDe nodes. The receiver receives each message, unpacks the message and puts the information into the correct generation.
+		
+	\item[Stabilizater] \
+		This component performs stabilization on a generation with a specified conflict resolution routine that have been configured beforehand.
+\end{description}
+
+% subsection components (end)
+
+\subsection{Data structures} % (fold)
+\label{sub:datastructures}
+
+The components in the ePRiDe architecture uses a number of data structures to store conflicts, transaction information and object state. 
+
+\emph{Transaction Store} is responsible for storing information about a transaction that the application creates. Each transaction is stored in a separate database file in Berkley DB.  Each transaction file stores which operations that have been performed in the transaction.
+
+\emph{Conflict Set} stores each update generation in a list that is created when an operation is performed on a database object. The update generation list is ordered on generation identifier. A generation identifier is defined as the age of the object on the specific ePRiDe instance and is represented with a number.    
+ 
+\emph{Object Store} stores the stable version of an object in a database file.
+ 
+% subsection datastructures (end)
+
+%(fold)
 
 %Each ePRide instance contains a number of components:
 % 	- Application 
@@ -39,3 +85,4 @@ In a system that uses ePRiDe, each node in the network is an instance of ePRiDe.
 %		- Stabilizator
 %	
 % - Describe the flow in number of activity diagrams
+% (end)
