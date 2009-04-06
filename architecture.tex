@@ -1,0 +1,41 @@
+%!TEX root = /Users/high/Documents/School/Thesis/report/thesis.tex
+
+\section{Architecture} % (fold)
+\label{sec:arch}
+
+In this section, a description of the overall architecture that are used in the implementation will be explained in more detail.  
+
+\subsection{Concepts} % (fold)
+\label{sub:consepts}
+In an application that needs replication, there is a distinction between \emph{local objects} and \emph{database objects}. Local objects are temporary objects that the application uses but there is no need to store these objects for later use. Database objects are objects that are used in the application and are durable, which means that the object can't be lost if any error occurs. These objects needs to be replicated 
+
+A database object is associated with a unique identifier that is unique between all ePRiDe nodes in the network. This is means any object in a ePRiDe instance can't have the same identifier as another object on the same ePRiDe instance or on any other instance in the network.    
+
+% -----
+
+In a system that uses ePRiDe, each node in the network is an instance of ePRiDe. These instances communicate with each other through message-passing. 
+
+%Each ePRide instance contains a number of components:
+% 	- Application 
+% 		This component is responsible for handling read and write requests that an application can make. This includes transaction commands. 
+%
+%	- Propagater
+%		The propagater is responsible for sending updates that are in the conflict set to the other ePRiDe instances. The propagater is used  when a commit has been performed on the node and the informmation needs to be replicated to the other ePRiDe instances.
+
+%	- Receiver 
+%		This component receives propagation messages that are send from other ePRiDe nodes. The receiver receives each message, unpacks the message and puts the information into the correct generation.
+
+%	- Stabilizater 
+%		This component performs stabilization on each generation when needed. 
+
+% To be able to serve these components, a number of datastructures are used. A transaction store are used by the application to store transaction informantion. This information contains the operations that have been conducted inside the transaction and the object state with each operation. This is similar to a write-ahead log [ref here]. A conflict set is used to handle the different generation on a specific object. 
+
+% - Describe replication 
+% - Describe each module
+% 	- Why, when 
+%		- Application 
+%		- Receiver 
+%		- Propagater
+%		- Stabilizator
+%	
+% - Describe the flow in number of activity diagrams

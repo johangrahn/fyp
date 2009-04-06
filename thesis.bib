@@ -9,6 +9,23 @@
 	note={Diss. Link{\"o}ping : Link{\"o}pings universitet, 2007},
 }
 
+
+@article{independent_updates95,
+	Abstract = {Update propagation and transaction atomicity are major obstacles to the development of replicated databases. Many practical applications, such as automated teller machine networks, flight reservation, and part inventory control, do not require these properties. In this paper we present an approach for incrementally updating a distributed, replicated database without requiring multi-site atomic commit protocols. We prove that the mechanism is correct, as it asymptotically performs all the updates on all the copies. Our approach has two important characteristics: it is progressive, and non-blocking. Progressive means that the transaction's coordinator always commits, possibly together with a group of other sites. The update is later propagated asynchronously to the remaining sites.Non-blocking means that each site can take unilateral decisions at each step of the algorithm. Sites which cannot commit updates are brought to the same final state by means of areconciliation mechanism. This mechanism uses the history logs, which are stored locally at each site, to bring sites to agreement. It requires a small auxiliary data structure, called reception vector, to keep track of the time unto which the other sites are guaranteed to be up-to-date. Several optimizations to the basic mechanism are also discussed.},
+	Author = {Ceri, S. and Houtsma, M. A. W. and Keller, A. M. and Samarati, P.},
+	Date-Added = {2009-04-03 13:52:53 +0200},
+	Date-Modified = {2009-04-03 13:52:53 +0200},
+	Journal = {Distributed and Parallel Databases},
+	Number = {3},
+	Pages = {225--246},
+	Title = {Independent updates and incremental agreement in replicated databases},
+	Ty = {JOUR},
+	Url = {http://dx.doi.org/10.1007/BF01418058},
+	Volume = {3},
+	Year = {1995},
+}
+
+
 @article{consistency2005,
 author = {Sanny Gustavsson and Sten F. Andler},
 title = {Continuous Consistency Management in Distributed Real-Time Databases with Multiple Writers of Replicated Data},
