@@ -18,6 +18,12 @@ A database object can store primitive data types. This includes for example int,
 
 A database object can only read and write data. Database objects are not allowed to send messages to other database objects since these messages can create inconsistency between ePRiDe instances.
 
+To be able to store all updates that are performed on database object, ePRiDe logs each operation that is performed on the database object. Operational logging is better to used since it increases the semantics used in conflict resolution compared to value logging, where only the result of the operation are logged. 
+
+%To be able to store information about each operation that are performed on a object, ePRiDe logs each operation that is performed a method call object(MCO) are created. 
+
+%Each MCO stores information about the DBOID, the operation that have been called, and the parameters that are being send to the operation. 
+
 % (end)
 
 \subsection{Network} % (fold)
@@ -53,10 +59,11 @@ The components in the ePRiDe architecture uses a number of data structures to st
 
 \emph{Transaction Store} is responsible for storing information about a transaction that the application creates. Each transaction is stored in a separate database file in Berkley DB.  Each transaction file stores which operations that have been performed in the transaction.
 
-\emph{Conflict Set} stores each update generation in a list that is created when an operation is performed on a database object. The update generation list is ordered on generation identifier. A generation identifier is defined as the age of the object on the specific ePRiDe instance and is represented with a number.    
+\emph{Conflict Set} stores each update generation in a list that is created when an operation is performed on a database object. The update generation list is ordered on generation identifier. A generation identifier is defined as the age of the object on the specific ePRiDe instance and is represented with a number \cite[]{Syber2007}.    
  
 \emph{Object Store} stores the stable version of an object in a database file.
- 
+
+
 % subsection datastructures (end)
 
 %(fold)
