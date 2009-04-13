@@ -56,13 +56,19 @@ Each ePRiDe instance consists of a number of components:
 \label{sub:datastructures}
 
 The components in the ePRiDe architecture uses a number of data structures to store conflicts, transaction information and object state. 
-
-\emph{Transaction Store} is responsible for storing information about a transaction that the application creates. Each transaction is stored in a separate database file in Berkley DB.  Each transaction file stores which operations that have been performed in the transaction. A transaction can only handle operations that are for a specific object.
-
-\emph{Conflict Set} stores each update generation in a list that is created when an operation is performed on a database object. The update generation list is ordered on generation identifier. A generation identifier is defined as the age of the object on the specific replica and is represented with a number \cite[]{Syber2007}.    
+\begin{description}
+	
+	\item[Transaction Store] \
+	is responsible for storing information about a transaction that the application creates. Each transaction is stored in a separate database file in Berkley DB.  Each transaction file stores which operations that have been performed in the transaction. A transaction can only handle operations that are for a specific object.
+	
+	\item[Conflict Set] \
+	stores each update generation in a list that is created when an operation is performed on a database object. The update generation list is ordered on generation identifier. A generation identifier is defined as the age of the object on the specific replica and is represented with a number \cite[]{Syber2007}.
+	
+	\item[Object Store] stores the stable version of all database objects.
+\end{description}
+    
 % TODO: Describe Update, no_update, none
  
-\emph{Object Store} stores the stable version of all database objects. 
 
 % subsection datastructures (end)
 

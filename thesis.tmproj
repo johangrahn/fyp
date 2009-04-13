@@ -28,13 +28,13 @@
 			<key>filename</key>
 			<string>thesis.tex</string>
 			<key>lastUsed</key>
-			<date>2009-04-12T10:29:15Z</date>
+			<date>2009-04-13T07:45:22Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>method.tex</string>
 			<key>lastUsed</key>
-			<date>2009-04-05T19:41:16Z</date>
+			<date>2009-04-13T08:15:57Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -62,9 +62,15 @@
 		</dict>
 		<dict>
 			<key>filename</key>
+			<string>experiments.tex</string>
+			<key>lastUsed</key>
+			<date>2009-04-13T13:43:29Z</date>
+		</dict>
+		<dict>
+			<key>filename</key>
 			<string>architecture.tex</string>
 			<key>lastUsed</key>
-			<date>2009-04-12T10:29:15Z</date>
+			<date>2009-04-13T13:43:29Z</date>
 			<key>selected</key>
 			<true/>
 		</dict>
@@ -92,14 +98,30 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>26</integer>
 				<key>line</key>
-				<integer>81</integer>
+				<integer>0</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>58</integer>
+			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>1</integer>
+			</dict>
 		</dict>
 		<key>background.tex</key>
 		<dict>
@@ -150,14 +172,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>25</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>2</integer>
+				<integer>104</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>104</integer>
 		</dict>
 		<key>problemstatement.tex</key>
 		<dict>
@@ -194,12 +216,12 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>46</integer>
+				<integer>44</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>36</integer>
+			<integer>35</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
