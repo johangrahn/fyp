@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>architecture.tex</string>
+	<string>thesis.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -28,13 +28,15 @@
 			<key>filename</key>
 			<string>thesis.tex</string>
 			<key>lastUsed</key>
-			<date>2009-04-12T10:29:15Z</date>
+			<date>2009-04-14T08:41:54Z</date>
+			<key>selected</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>method.tex</string>
 			<key>lastUsed</key>
-			<date>2009-04-13T08:15:57Z</date>
+			<date>2009-04-14T08:08:16Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -62,17 +64,9 @@
 		</dict>
 		<dict>
 			<key>filename</key>
-			<string>experiments.tex</string>
-			<key>lastUsed</key>
-			<date>2009-04-13T13:43:29Z</date>
-		</dict>
-		<dict>
-			<key>filename</key>
 			<string>architecture.tex</string>
 			<key>lastUsed</key>
-			<date>2009-04-13T13:43:29Z</date>
-			<key>selected</key>
-			<true/>
+			<date>2009-04-14T08:22:26Z</date>
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
@@ -98,30 +92,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>26</integer>
+				<integer>61</integer>
 				<key>line</key>
-				<integer>0</integer>
+				<integer>69</integer>
 			</dict>
-			<key>columnSelection</key>
-			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>1</integer>
-			</dict>
+			<integer>57</integer>
 		</dict>
 		<key>background.tex</key>
 		<dict>
@@ -174,12 +152,28 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>104</integer>
+				<integer>2</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>104</integer>
+			<integer>76</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>25</integer>
+				<key>line</key>
+				<integer>2</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>2</integer>
+			</dict>
 		</dict>
 		<key>problemstatement.tex</key>
 		<dict>
@@ -216,12 +210,12 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>44</integer>
+				<integer>0</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>35</integer>
+			<integer>45</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>

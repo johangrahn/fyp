@@ -12,15 +12,15 @@ In this section, a description of the overall architecture that are used in the 
 
 In an application that needs replication, there is a distinction between \emph{local objects} and \emph{database objects}. Local objects are temporary objects that the application uses but there is no need to store these objects for later use. Database objects are objects that are used in the application and are durable, which means that the object can't be lost if any error occurs. These objects needs to be replicated 
 
-A database object is associated with a unique database object identifier(DBOID) that is unique between all ePRiDe nodes in the network. This is means any logical object in a ePRiDe instance can't have the same identifier as another object on the same ePRiDe instance or on any other instance in the network.    
+A database object is associated with a unique database object identifier(DBOID) that is unique between all EPRiDe nodes in the network. This is means any logical object in a EPRiDe instance can't have the same identifier as another object on the same EPRiDe instance or on any other instance in the network.    
 
-A database object can store primitive data types. This includes for example int, char, double. Pointer to other database objects are not handled are out of scope for this implementation since it creates more complexity in recording state of each object. One possible solution is to define a interface that has a number of operations that are handled by ePRiDe and are mapped to objects that handles the actual method that is defined in the interface.    
+A database object can store primitive data types. This includes for example int, char, double. Pointer to other database objects are not handled are out of scope for this implementation since it creates more complexity in recording state of each object. One possible solution is to define a interface that has a number of operations that are handled by EPRiDe and are mapped to objects that handles the actual method that is defined in the interface.    
 
-A database object can only read and write data. Database objects are not allowed to send messages to other database objects since these messages can create inconsistency between ePRiDe instances.
+A database object can only read and write data. Database objects are not allowed to send messages to other database objects since these messages can create inconsistency between EPRiDe instances.
 
-To be able to store all updates that are performed on database object, ePRiDe logs each operation that is performed on the database object. Operational logging is better to used since it increases the semantics used in conflict resolution compared to value logging, where only the result of the operation are logged. 
+To be able to store all updates that are performed on database object, EPRiDe logs each operation that is performed on the database object. Operational logging is better to used since it increases the semantics used in conflict resolution compared to value logging, where only the result of the operation are logged. 
 
-%To be able to store information about each operation that are performed on a object, ePRiDe logs each operation that is performed a method call object(MCO) are created. 
+%To be able to store information about each operation that are performed on a object, EPRiDe logs each operation that is performed a method call object(MCO) are created. 
 
 %Each MCO stores information about the DBOID, the operation that have been called, and the parameters that are being send to the operation. 
 
@@ -29,22 +29,22 @@ To be able to store all updates that are performed on database object, ePRiDe lo
 \subsection{Network} % (fold)
 \label{sub:network}
 
-In a system that uses ePRiDe, each node in the network is an instance of ePRiDe. These instances communicate with each other only through message-passing. 
+In a system that uses EPRiDe, each node in the network is an instance of EPRiDe. These instances communicate with each other only through message-passing. 
 
 \subsection{Components} % (fold)
 \label{sub:components}
 
-Each ePRiDe instance consists of a number of components:
+Each EPRiDe instance consists of a number of components:
 
 \begin{description}
 	\item[Application] \
 		The application component is responsible for handling read and write requests that an application can make. This includes transaction commands.
 		
 	\item[Propagater] \
-		The propagater is responsible for sending updates that are in the conflict set to the other ePRiDe instances. The propagater is used  when a commit has been performed on the node and the information needs to be replicated to the other ePRiDe instances.
+		The propagater is responsible for sending updates that are in the conflict set to the other EPRiDe instances. The propagater is used  when a commit has been performed on the node and the information needs to be replicated to the other EPRiDe instances.
 		
 	\item[Receiver] \
-		This component receives propagation messages that are send from other ePRiDe nodes. The receiver receives each message, unpacks the message and puts the information into the correct generation.
+		This component receives propagation messages that are send from other EPRiDe nodes. The receiver receives each message, unpacks the message and puts the information into the correct generation.
 		
 	\item[Stabilizater] \
 		This component performs stabilization on a generation with a specified conflict resolution routine that have been configured beforehand.
@@ -55,11 +55,11 @@ Each ePRiDe instance consists of a number of components:
 \subsection{Data structures} % (fold)
 \label{sub:datastructures}
 
-The components in the ePRiDe architecture uses a number of data structures to store conflicts, transaction information and object state. 
+The components in the EPRiDe architecture uses a number of data structures to store conflicts, transaction information and object state. 
 \begin{description}
 	
 	\item[Transaction Store] \
-	is responsible for storing information about a transaction that the application creates. Each transaction is stored in a separate database file in Berkley DB.  Each transaction file stores which operations that have been performed in the transaction. A transaction can only handle operations that are for a specific object.
+	is responsible for storing information about a transaction that the application creates. Each transaction is stored in a separate database file in Berkeley DB.  Each transaction file stores which operations that have been performed in the transaction. A transaction can only handle operations that are for a specific object.
 	
 	\item[Conflict Set] \
 	stores each update generation in a list that is created when an operation is performed on a database object. The update generation list is ordered on generation identifier. A generation identifier is defined as the age of the object on the specific replica and is represented with a number \cite[]{Syber2007}.
@@ -75,37 +75,34 @@ The components in the ePRiDe architecture uses a number of data structures to st
 \subsection{Data interaction} % (fold)
 \label{sub:data_interaction}
 
-When a method is performed on a object, the method call is logged and registered inside the transaction store. The transaction stores the operation and the new state of the object after the operation has been performed. When a commit is called by the application, the transaction containing all operations are send to the conflict set and receives a generation number. When the transaction have entered the conflict set, the transaction is propagated to the other ePRiDe nodes in the network. The propagation is performed by the propagater process. 
-
-These components are illustrated in ....
-
+When a method is performed on a object, the method call is logged and registered inside the transaction store. The transaction stores the operation and the new state of the object after the operation has been performed. When a commit is called by the application, the transaction containing all operations are send to the conflict set and receives a generation number. When the transaction have entered the conflict set, the transaction is propagated to the other EPRiDe nodes in the network. The propagation is performed by the propagater process. The interaction between the components and the data structures are illustrated in fig \ref{fig:components}.
 \begin{figure}[htb]
 \centerline{\includegraphics[height=8cm]{components.pdf}}
-\caption{The components used in ePRiDe and their interactions}\label{fig:components}
+\caption{The components used in EPRiDe and their interactions}\label{fig:components}
 \end{figure}
 
 When an application process want to read a stable object, the read routine fetches the object state from the object store. If the application process wants to read a optimistic object, the following tasks are performed: 
-\begin{itemize}
+\begin{enumerate}
 	\item A stable version of the object are fetched from the object store.
 	\item If there are any generations in the conflict set for the given object, these are resolved by the Stabilizater. The Stabilizater stabilizates each generation by perfoming a conflict resolution routine on each generation. 
 	\item Each generation that is stabilized, the outcome of the conflict resolution are performed on the object. 
 	\item The read process returns the optimistic object after each unstable update have been performed.
-\end{itemize}
+\end{enumerate}
 
 
 % subsection data_interaction (end)
 
 %(fold)
 
-%Each ePRide instance contains a number of components:
+%Each EPRiDe instance contains a number of components:
 % 	- Application 
 % 		This component is responsible for handling read and write requests that an application can make. This includes transaction commands. 
 %
 %	- Propagater
-%		The propagater is responsible for sending updates that are in the conflict set to the other ePRiDe instances. The propagater is used  when a commit has been performed on the node and the informmation needs to be replicated to the other ePRiDe instances.
+%		The propagater is responsible for sending updates that are in the conflict set to the other EPRiDe instances. The propagater is used  when a commit has been performed on the node and the informmation needs to be replicated to the other EPRiDe instances.
 
 %	- Receiver 
-%		This component receives propagation messages that are send from other ePRiDe nodes. The receiver receives each message, unpacks the message and puts the information into the correct generation.
+%		This component receives propagation messages that are send from other EPRiDe nodes. The receiver receives each message, unpacks the message and puts the information into the correct generation.
 
 %	- Stabilizater 
 %		This component performs stabilization on each generation when needed. 
