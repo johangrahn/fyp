@@ -18,7 +18,7 @@ A database object can store primitive data types. This includes for example int,
 
 A database object can only read and write data. Database objects are not allowed to send messages to other database objects since these messages can create inconsistency between replicas in the network.
 
-To be able to store updates that are performed on database object, EPRiDe logs each operation that is performed on the database object. This type of logging is referred as \emph{operational logging}. Operational logging increases the semantics used in conflict resolution compared to value logging, where only the result of the operation are logged. 
+To be able to store updates that are performed on database object, EPRiDe logs each operation that is performed on the database object including parameters. This type of logging is referred as \emph{operational logging}. Operational logging increases the semantics used in conflict resolution compared to value logging, where only the result of the operation are logged. 
 
 %To be able to store information about each operation that are performed on a object, EPRiDe logs each operation that is performed a method call object(MCO) are created. 
 
