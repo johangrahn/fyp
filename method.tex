@@ -20,17 +20,17 @@ Two alternatives have been identified for an implementation that follows the Dee
 
 \begin{description}
  
-\item[Create a layer on top of Berkley DB] \
+\item[Create a layer on top of Berkeley DB] \
 	
-A implementation of PRiDe will be implemented on top of Berkley DB, using Berkley DB as local database with replication disabled in Berkley DB. This type of implementation has also been performed in Dynamo, as described by \cite{Dynamo2007}. In Dynamo, BerkleyDB acts as local database manager with no replication support and the replication is done by a upper layer. Dynamo supports optimistic replication so that writes can always be performed(e.g. not blocked by other writes) and it supports eventual consistency so that any inconsistencies created by the replication can be resolved later. This means that Dynamo has similar features as PRiDe and motivates why PRiDe can be implemented in the same way.  
+A implementation of PRiDe will be implemented on top of Berkeley DB, using Berkeley DB as local database with replication disabled in Berkeley DB. This type of implementation has also been performed in Dynamo, as described by \cite{Dynamo2007}. In Dynamo, BerkleyDB acts as local database manager with no replication support and the replication is done by a upper layer. Dynamo supports optimistic replication so that writes can always be performed(e.g. not blocked by other writes) and it supports eventual consistency so that any inconsistencies created by the replication can be resolved later. This means that Dynamo has similar features as PRiDe and motivates why PRiDe can be implemented in the same way.  
 	
-\item[Integrate in Berkley DB] \
+\item[Integrate in Berkeley DB] \
 
-The implementation will be inserted inside Berkley DB to change the replication semantics of Berkley DB and to reuse some of the features that Berkley DB has. A technical report, written by \cite{kang2008}, describes that there is a number of inter-dependencies, both in the replication layer, and between the upper replication layer and lower BDB layer. These inter-dependencies are not documented at all, and will extend the development time a lot by testing and verifying the implementation since the behavior of the replication can't be derived from the documentation.
+The implementation will be inserted inside Berkeley DB to change the replication semantics of Berkeley DB and to reuse some of the features that Berkeley DB has. A technical report, written by \cite{kang2008}, describes that there is a number of inter-dependencies, both in the replication layer, and between the upper replication layer and lower BDB layer. These inter-dependencies are not documented at all, and will extend the development time a lot by testing and verifying the implementation since the behavior of the replication can't be derived from the documentation.
  
 \end{description}
    	
-PRiDe will be implemented as a layer above the replication layer in Berkley DB. The protocol will interpret transactions coming from  Berkley DB, and perform protocol specific instructions and then send it to the replication layer in BerkleyDB. \cite{kang2008} argues that since Berkley DB was designed for single-master replication, there are a number of inter-depedencies that make it hard to modify the replication layer.
+PRiDe will be implemented as a layer above the replication layer in Berkeley DB. The protocol will interpret transactions coming from  Berkeley DB, and perform protocol specific instructions and then send it to the replication layer in BerkleyDB. \cite{kang2008} argues that since Berkeley DB was designed for single-master replication, there are a number of inter-depedencies that make it hard to modify the replication layer.
 %\end{description} 
 
 \subsection{Create baseline for evaluation} % (fold)
@@ -56,8 +56,8 @@ A baseline is a comparable implementation to PRiDe. This implementation needs to
 %There exists a number of frameworks that are suitable for this type of extension based on their features:
 
 %\begin{description}
-%	\item[Berkley DB] 
-%		Berkley DB is open-source distributed database, which matches the requirement about extendability, since the source-code can be modified. Berkley DB supports single-master replication, which is close to what we want to have, that is multi-master replication.  Berkley DB also supports transactions which also are needed for the experiment. 
+%	\item[Berkeley DB] 
+%		Berkeley DB is open-source distributed database, which matches the requirement about extendability, since the source-code can be modified. Berkeley DB supports single-master replication, which is close to what we want to have, that is multi-master replication.  Berkeley DB also supports transactions which also are needed for the experiment. 
 	
 %	\item[Polyhedra] 
 %		Polyhedra is a distributed database. It supports transactions, in-memory data storage and single-master replication.  Polyhedra is based on a client/server architecture with cross-platform interpretability. 
@@ -78,7 +78,7 @@ A baseline is a comparable implementation to PRiDe. This implementation needs to
 %	\label{table_features}
 %\end{table}
 
-%Given the features that each framework has, the chosen framework for this study is Berkley DB. Both Polyhedra and Mimer SQL supports both transactions and single-master replication as BerkleyDB but in both cases, there is a need for a license. Berkley DB is open-source, which means that there is no need for a license and can be modified in any way that is necessary. Since Polyhedra is based on a client/server architecture it would take longer time to extend then Berkley DB because Berkley DB is just a static library that you include in your source code which removes the time for developing the client for using the Polyhedra client library.  
+%Given the features that each framework has, the chosen framework for this study is Berkeley DB. Both Polyhedra and Mimer SQL supports both transactions and single-master replication as BerkleyDB but in both cases, there is a need for a license. Berkeley DB is open-source, which means that there is no need for a license and can be modified in any way that is necessary. Since Polyhedra is based on a client/server architecture it would take longer time to extend then Berkeley DB because Berkeley DB is just a static library that you include in your source code which removes the time for developing the client for using the Polyhedra client library.  
 
 \subsection{Evaluate the performance} 
 \label{subsec:experiment}
@@ -87,7 +87,7 @@ A baseline is a comparable implementation to PRiDe. This implementation needs to
 \subsubsection{Evaluation definitions} % (fold)
 \label{ssub:evaluation_baseline}
 
-For the experiments, we define a baseline that we can evaluate with. This baseline consists of two systems. The first system is general distributed database(DDB) that uses single-master replication and uses a two-phase commit protocol. DDB will only be used as a baseline for discussing, and will not be used in the experiments. The second system is Berkley DB but has been extended with multi-master support, will be referenced as BDBe (Berkley DB extended). 
+For the experiments, we define a baseline that we can evaluate with. This baseline consists of two systems. The first system is general distributed database(DDB) that uses single-master replication and uses a two-phase commit protocol. DDB will only be used as a baseline for discussing, and will not be used in the experiments. The second system is Berkeley DB but has been extended with multi-master support, will be referenced as BDBe (Berkeley DB extended). 
 
 \subsection{Performance metrics} % (fold)
 \label{sub:performance_metrics}
