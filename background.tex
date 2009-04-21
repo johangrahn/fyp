@@ -40,7 +40,7 @@ In a DDBMS, when a transaction needs to update more then one node in the network
 \subsection{Replication} 
 \label{ssub:replication}
 
-In distributed databases, replication is used to increase availability and fault-tolerance of the system. In this report, a replica is a copy of a object located on the same database node or on another database node. A client is an application that uses some or all data that is stored inside the database. 
+In distributed databases, replication is used to increase availability and fault-tolerance of the system. In this report, a replica is a copy of a object located on the same database node or on another database node. A client is an application that uses some or all data that is stored inside the database. When an update is \emph{replicated} to another database node, it means that the update has been send to the node and the update have been integrated on the database node.
 
 There exists a number of different type of replication styles. Most commonly used are \emph{pessimistic replication} and \emph{optimistic replication}. Pessimistic replication is most commonly used in database systems and the idea is to maintain single-copy consistency, which means that every replica are consistent with each other and a client will always the updated data. This type of replication is to restrictive since a client are not allowed to read from a replica unless that replica is updated with the latest data. 
 
