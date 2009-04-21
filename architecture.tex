@@ -16,20 +16,13 @@ A database object is associated with a unique database object identifier(DBOID) 
 
 A database object can store primitive data types. This includes for example int, char, double. Pointer to other database objects are not handled and are out of scope for this implementation. One possible solution is to define a interface that has a number of operations that are handled by EPRiDe and are mapped to objects that executes the actual methods.  
 
-A database object can only read and write data. Database objects are not allowed to send messages to other database objects since these messages can create inconsistency between replicas in the network.
+A database object can only read and write data. Each read operation are not allowed to change the internal state of the database object. Database objects are not allowed to send messages to other database objects since these messages can create inconsistency between replicas in the network.
 
 To be able to store updates that are performed on database object, EPRiDe logs each operation that is performed on the database object including parameters. This type of logging is referred as \emph{operational logging}. Operational logging increases the semantics used in conflict resolution compared to value logging, where only the result of the operation are logged. 
 
-%To be able to store information about each operation that are performed on a object, EPRiDe logs each operation that is performed a method call object(MCO) are created. 
-
-%Each MCO stores information about the DBOID, the operation that have been called, and the parameters that are being send to the operation. 
 
 % (end)
 
-\subsection{Network} % (fold)
-\label{sub:network}
-
-In a system that uses EPRiDe, each node in the network is an instance of EPRiDe. These instances communicate with each other only through message-passing. 
 
 \subsection{Components} % (fold)
 \label{sub:components}
@@ -75,12 +68,21 @@ The components in the EPRiDe architecture uses a number of data structures to st
 \subsection{Data interaction} % (fold)
 \label{sub:data_interaction}
 
-When a method is performed on a object, the method call is logged and registered inside the transaction store. The transaction stores the operation and the new state of the object after the operation has been performed. When a commit is called by the application, the transaction containing all operations are send to the conflict set and receives a generation number. When the transaction have entered the conflict set, the transaction is propagated to the other EPRiDe nodes in the network. The propagation is performed by the propagater process. The interaction between the components and the data structures are illustrated in fig \ref{fig:components}.
+Figure \ref{fig:components} illustrates the components, the defined data structures and their interactions. 
 
 \begin{figure}[htb]
 \centerline{\includegraphics[height=8cm]{components.pdf}}
 \caption{The components used in EPRiDe and their interactions}\label{fig:components}
 \end{figure}
+
+
+When a application wants to write to the object, the method call is logged and registered inside the transaction store. The transaction stores the operation and the new state of the object after the operation has been performed. When a commit is called by the application, the transaction containing all operations are send to the conflict set and each write operations creates a new generation. Each generation that is created are propagated to the other EPRiDe nodes in the network. 
+
+When a propagation is received by the reciever, the update is stored in the objects conflict set and are given the highest generation id plus one. Each generation that has a lower generation id than the generation id that was generated, are set to No\_update for the given replica. 
+
+Stabilization is performed on a defined interval of 2 seconds. During this event, one generation are stabilized using a defined conflict resolution routine. The result that the conflict resolution routine decides, are applied to the stable object that is stored in the object store.
+  
+
 
 When an application process want to read a stable object, the read routine fetches the object state from the object store. If the application process wants to read a optimistic object, the following tasks are performed: 
 \begin{enumerate}
@@ -90,6 +92,11 @@ When an application process want to read a stable object, the read routine fetch
 	\item The read process returns the optimistic object after each unstable update have been performed.
 \end{enumerate}
 
+\subsection{Implementation} % (fold)
+\label{sub:implementation}
+
+(((( Describe details about the implementation, what software, programming language etc. ))))
+% subsection implementation (end)
 
 % subsection data_interaction (end)
 

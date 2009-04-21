@@ -1,6 +1,5 @@
 %!TEX root = /Users/high/Documents/School/Thesis/report/thesis.tex
 
-
 \section{Problem description}
 \label{sec:problem_description}
 
@@ -23,7 +22,7 @@ The aim with this final year project is to investigate how well PRiDe performs i
 
 Since the PRiDe protocol has only been evaluated in a simulation, there is a need for an investigation of performance and resource usage in a realistic situation \cite[]{Syber2007}.
 
-\subsection{Objectives} 
+\subsection{Objectives} % (fold)
 \label{subsec:objectives}
 
 To be able to fulfill our aim, the following objectives needs to be meet:  
@@ -40,7 +39,8 @@ To be able to fulfill our aim, the following objectives needs to be meet:
 
 	\item[Create baseline for evaluation] \
 
-	A baseline needs to be defined to be able to create and compare experiments to evaluate the performance.  
+	A baseline needs to be defined to be able to create and compare experiments to evaluate the performance. Both the PRiDe protocol have a number of requirements that the baseline needs to fulfill. For PRiDe, one requirement should be eventual consistency. For DeeDS, a requirement should be in-memory storage. An analysis needs to be conducted to see what these requirements are and to select a good candidate that fulfill the given requirements so that a correct evaluation can be performed.
+
 
 	%The platform needs to be extended with distributed-master support. For an evaluation of PRiDe, support for independent updates is required. and for distributed transactions that allows updates of master data replicas from slave database nodes.
 
@@ -48,8 +48,9 @@ To be able to fulfill our aim, the following objectives needs to be meet:
 
 	When evaluating the performance a number of performance metrics needs to be specified to be able to define the use for each experiment. A number of experiments should be defined to be able to measure each metric, such that measurements can be made to compare performance.  
 	
-	In this project, we need to define a number of performance metrics that we believe that can be used in the performance evaluation. These metrics are execution time, blocking time, bandwidth usage, stabilization time. Execution time is the total time it takes to replicate and stabilize each update. Blocking time is how long a transaction must wait from the time when the transaction commits until the transaction is completed. Bandwidth usage is how much messages each node in the network uses for replication and stabilization. Stabilization time is the time from that an update has been considered unstable to the time when it is stable by performing stabilization.  
-
-This performance metrics are not established and can be changed as the project progresses and the implementation is created.
+	In this project, we need to define a number of performance metrics that we believe that can be used in the performance evaluation. These metrics are execution time, blocking time, bandwidth usage, stabilization time. Execution time is the total time it takes to replicate and stabilize each update. Blocking time is how long a transaction must wait from the time when the transaction commits until the transaction is completed. Bandwidth usage is how much messages each node in the network uses for replication and stabilization. Stabilization time is the time from that an update has been considered unstable to the time when it is stable by performing stabilization. These performance metrics are not complete and can be changed as the project progresses.
  
+The evaluation should conduct measurements with three types of setups. \emph{Single-master evaluation} should evaluate the performance when only one replica writer is allowed. The idea of the test is to create a base case. \emph{Multi-master evaluation} should evaluate the performance when multiple replica writers are allowed. The idea is to see that PRiDe has lower blocking time then the defined baseline. \emph{Stabilization evaluation} should evaluate the resource usage when performing stabilization. The test should show that there is no overuse of resources.  
+
 \end{description}
+% (end)

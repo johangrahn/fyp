@@ -8,8 +8,48 @@ This section explains the experiments that have been performed to measure the pe
 \subsection{Performance metrics} % (fold)
 \label{sub:experiments_performance_metrics}
 
-To be able to measure the performance in the EPRiDe implementation against BDBe, a number of performance metrics have been established. These performance metrics have been selected due to the fact that they can be measured in single-master replication, distributed-master replication and in multi-master replication.
+To be able to measure the performance in the EPRiDe implementation a number of performance metrics have been established. These performance metrics are measured both against EPRiDe and Berkeley DB which has been extended with distributed-master replication. This extension will be referred as Berkeley DB extended (BDBe). These performance metrics have been selected due to the fact that they can be measured in single-master replication and in multi-master replication.
 
+\begin{description}
 
+	\item[Bandwidth usage]
+
+This metric is measured can be measured in two ways. Measuring the amount of data traffic that gets transfered between two database nodes in the network or measuring the total number of data that is transfered between all the replicas in the network during the entire experiment.
+
+	\item[Execution time]
+
+	This metric measures the time it takes to process all transactions and to the time when all replicas has the same information about all objects that have been updated. For PRiDe, this means that the time for receive all transactions, perform local integration, propagate to all the replicas, perform integration on the target replica, and finally perform stabilization on target replica. For DDB, it is the time for receiving all transactions, and performing a distributed transaction update each replica. For BDBe, it is to process all transactions and for each transaction, perform local integration on the master node, and then replicate the update to the slave replicas and perform integration on the each slave. When only one node receives the updates. If all nodes can receive updates, execution time for BDBe is the time to receive all transactions, send all transactions to the master node, propagate the updates to the replicas and then integrate the update on the target replica.
+
+	%This is the time it takes for each database node to process each transaction and perform a commit or abort on the transaction, and then replicate the update to the other database nodes and integrate the update and the database node. 
+
+	\item[Stabilization time]
+	This mean the time from that a update has reached a replica and until the update is stable on that replica. This is only measurable on PRiDe because there is no stabilization in DDB, and in BDBe, the stabilization time is from the time when the local integration has performed on master nod and until the update has been propagated to the target replicas and have been integrated on target replicas. But these is not stabilization, it is just replication of an update.
+
+	In PRiDe, this can be measured on individual node, by measuring the time it take from that an update has been locally integrated on the replica and to the time when the update have been moved to the stable prefix. This includes the time it takes to perform conflict resolution. 
+
+	The type of measurements can be compared between different replicas. This means that measurements can done by the maximum time, minimum time, average time, when comparing with all replicas in the network. 
+
+	%This is the time it take for each database to process each transaction, commit or abort locally and then replicate the update to the remove database nodes, and integrate the update, and finally pertform stabilization on the updates so that all database replicas have the same information about all objects.
+
+	\item[Blocking time] 
+
+	When only one node (master node) is allowed to perform updates, the blocking time for PRiDe is only the time it takes to make a integration of the update on the local node. For DDB, the blocking time is the time when the transaction waits until all (or some) of the replicas has integrated the update. For BDBe, this means that blocking time will just be the local blocking time for performing the commit.
+	When independent updates are allowed, it is the same blocking time for PRiDe, but for BDBe, each transaction need to wait for the transaction to be send to the master node and integrate the update on the master and then receive a reply. The blocking time for BDBe can be affected by network latency and network partitioning. For DDB, independent updates can't be used since only one node (master node) can receive updates.
+
+\end{description}
 
 % subsection performance_metrics (end)
+
+%\subsection{Requirements on platform} % (fold)
+%\label{sub:s}
+
+%In order to create an implementation of PRiDe, there is a number of requirements that needs to be fulfilled to be able to perform a correct implementation.
+
+% Main-memory storage
+% Eventual Consistency 
+% Optimistic replication
+% Multi-master updates (Independent updates)
+
+% subsection s (end)
+
+% section section_name (end)
