@@ -23,6 +23,26 @@ To be able to store updates that are performed on database object, EPRiDe logs e
 
 % (end)
 
+%\subsection{Transactions} % (fold)
+%\label{sub:transactions}
+
+%Transaction
+%	Identified by an ID
+	
+%	Transaction contains a number of operations. These operations can be both read and write operations. 
+%	A transaction can only have operations that affect one object. (Own subchapter?)
+	
+%	Each transaction are send as one segment to the conflict set with one generation Id.
+%	The transaction stores a tentative object where all operations have been performed. 
+	
+%	Each transaction are not removed from the transaction store until the transaction have been stabilized with a conflict resolution routine.  
+
+%Transactions is PRiDe 
+%	In PRiDe, only on transaction is allowed at the time. when a transaction is replicated, the transaction is not isolated from concurrent updates that have been performed on another PRiDe instance. This means that when a transaction, containing updates u1 to u3 on node N1 have been commited, and propagated, another concurrent update u4 that where performed on N2, are in conflict with u2. Then when the conflict resolution decides that it throws away the update u2, then the transaction isolation is broken. 
+	
+
+
+% subsection transactions (end)
 
 \subsection{Components} % (fold)
 \label{sub:components}
