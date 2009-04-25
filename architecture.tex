@@ -3,22 +3,24 @@
 \section{Architecture} % (fold)
 \label{sec:arch}
 
-In this section, a description of the overall architecture that are used in the implementation of the PRiDe protocol will be explained in more detail. The PRiDe implementation will be referred as Evaluation PRiDe (EPRiDe) for the remaining of the report.  
+In this section, a description of the overall architecture that are used in the implementation of the PRiDe protocol will be explained in more detail. The PRiDe implementation will be referred as Extended PRiDe (EPRiDe) for the remaining of the report.  
 
 % (end)
 
 \subsection{Concepts} % (fold)
 \label{sub:consepts}
 
-In an application that uses replication to increase availability, we establish a distinction between \emph{local objects} and \emph{database objects}. Local objects are temporary objects that the application uses but there is no need to store these objects permanently. Database objects are objects that are used in the application and are durable, which means that the object can't be lost if any error occurs. To increase fault tolerance for database objects, these objects are replicated to other nodes so that if the node crashes, the information is stored on at least one more node. 
+In an application that uses replication to increase availability, we distinct between \emph{local objects} and \emph{database objects}. Local objects are temporary objects that the application uses, where there is no need to store these objects permanently. Database objects are objects that are used in the application and are durable, which means that the object can't be lost if any error occurs. To increase fault tolerance for database objects, these objects are replicated to other nodes, so that if the node crashes, the information is stored on at least one more node. 
 
-A database object is associated with a unique database object identifier(DBOID) that is unique between all EPRiDe nodes in the network. This is means any logical object in a EPRiDe instance can't have the same identifier as another object on the same EPRiDe instance or on any other instance in the network.    
+A database object is associated with a unique global database object identifier(DBOID) that is unique between all EPRiDe instance in the network. This is means any logical object in a EPRiDe instance can't have the same identifier as another object on the same EPRiDe instance or on any other EPRiDe instances in the network.    
 
 A database object can store primitive data types. This includes for example int, char, double. Pointer to other database objects are not handled and are out of scope for this implementation. One possible solution is to define a interface that has a number of operations that are handled by EPRiDe and are mapped to objects that executes the actual methods.  
 
-A database object can only read and write data. Each read operation are not allowed to change the internal state of the database object. Database objects are not allowed to send messages to other database objects since these messages can create inconsistency between replicas in the network.
+% A database object can only read and write data. Each read operation are not allowed to change the internal state of the database object. Database objects are not allowed to send messages to other database objects since these messages can create inconsistency between replicas in the network.
+A database object can perform two types of operations; Write operations and read operations. \cite{Syber2007} makes a distinction between these type of operations because in PRiDe, they are handled differently. When PRiDe creates a transaction with a number of read and write operations and performs a commit, only the write operations are replicated to the other database nodes, since only write operations are allowed to affect the database node state.      
 
-To be able to store updates that are performed on database object, EPRiDe logs each operation that is performed on the database object including parameters. This type of logging is referred as \emph{operational logging}. Operational logging increases the semantics used in conflict resolution compared to value logging, where only the result of the operation are logged. 
+% Add reference to logging data here 
+To be able to store updates that are performed on database object, EPRiDe logs each operation that is performed on the database object including parameters. This type of logging is referred as \emph{operational logging}. Often, \emph{value logging} is used when replicating data. Operational logging adds semantics when performing conflict resolution so that when a value has changed from a operation that where performed on the database object, the algorithm can see what operation that it was and can perform a better resolution based on these facts.
 
 
 % (end)
@@ -47,19 +49,19 @@ To be able to store updates that are performed on database object, EPRiDe logs e
 \subsection{Components} % (fold)
 \label{sub:components}
 
-Each EPRiDe instance consists of a number of components:
+Each EPRiDe node consists of a number of components:
 
 \begin{description}
 	\item[Application] \
 		The application component is responsible for handling read and write requests that an application can make. This includes transaction commands.
 		
-	\item[Propagater] \
-		The propagater is responsible for sending updates that are in the conflict set to the other EPRiDe instances. The propagater is used  when a commit has been performed on the node and the information needs to be replicated to the other EPRiDe instances.
+	\item[Propagator] \
+		The propagater is responsible for sending updates that are in the conflict set to the other EPRiDe nodes. The propagater is used  when a commit has been performed on the node and the information needs to be replicated to the other EPRiDe instances.
 		
 	\item[Receiver] \
 		This component receives propagation messages that are send from other EPRiDe nodes. The receiver receives each message, unpacks the message and puts the information into the correct generation.
 		
-	\item[Stabilizater] \
+	\item[Stabilizator] \
 		This component performs stabilization on a generation with a specified conflict resolution routine that have been configured beforehand.
 \end{description}
 
@@ -98,7 +100,7 @@ Figure \ref{fig:components} illustrates the components, the defined data structu
 
 When a application wants to write to the object, the method call is logged and registered inside the transaction store. The transaction stores the operation and the new state of the object after the operation has been performed. When a commit is called by the application, the transaction containing all operations are send to the conflict set and each write operations creates a new generation. Each generation that is created are propagated to the other EPRiDe nodes in the network. 
 
-When a propagation is received by the reciever, the update is stored in the objects conflict set and are given the highest generation id plus one. Each generation that has a lower generation id than the generation id that was generated, are set to No\_update for the given replica. 
+When a propagation is received by the receiver, the update is stored in the objects conflict set and are given the highest generation id plus one. Each generation that has a lower generation id than the generation id that was generated, are set to No\_update for the given replica. 
 
 Stabilization is performed on a defined interval of 2 seconds. During this event, one generation are stabilized using a defined conflict resolution routine. The result that the conflict resolution routine decides, are applied to the stable object that is stored in the object store.
   

@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>architecture.tex</string>
+	<string>Changelog</string>
 	<key>documents</key>
 	<array>
 		<dict>
 			<key>filename</key>
 			<string>thesis.bib</string>
 			<key>lastUsed</key>
-			<date>2009-04-03T12:54:29Z</date>
+			<date>2009-04-25T09:19:34Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -34,19 +34,19 @@
 			<key>filename</key>
 			<string>method.tex</string>
 			<key>lastUsed</key>
-			<date>2009-04-20T19:28:36Z</date>
+			<date>2009-04-21T14:29:56Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>problemstatement.tex</string>
 			<key>lastUsed</key>
-			<date>2009-04-20T19:28:37Z</date>
+			<date>2009-04-21T14:29:59Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>background.tex</string>
 			<key>lastUsed</key>
-			<date>2009-04-20T19:24:50Z</date>
+			<date>2009-04-25T14:27:38Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -64,19 +64,57 @@
 			<key>filename</key>
 			<string>architecture.tex</string>
 			<key>lastUsed</key>
-			<date>2009-04-21T14:19:33Z</date>
+			<date>2009-04-25T14:11:25Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>experiments.tex</string>
 			<key>lastUsed</key>
-			<date>2009-04-20T19:28:36Z</date>
+			<date>2009-04-25T14:11:24Z</date>
+		</dict>
+		<dict>
+			<key>filename</key>
+			<string>Changelog</string>
+			<key>lastUsed</key>
+			<date>2009-04-25T14:27:38Z</date>
+			<key>selected</key>
+			<true/>
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
 	<integer>200</integer>
 	<key>metaData</key>
 	<dict>
+		<key>Changelog</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>1</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>4</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>1</integer>
+			</dict>
+		</dict>
 		<key>Notes.tex</key>
 		<dict>
 			<key>caret</key>
@@ -96,42 +134,42 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>133</integer>
+				<integer>15</integer>
 				<key>line</key>
-				<integer>37</integer>
+				<integer>146</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>141</integer>
+			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>14</integer>
+			<integer>116</integer>
 		</dict>
 		<key>background.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>42</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>51</integer>
+				<integer>87</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>0</integer>
+			<integer>274</integer>
 			<key>firstVisibleLine</key>
-			<integer>33</integer>
+			<integer>58</integer>
 		</dict>
 		<key>experiments.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>17</integer>
 				<key>line</key>
-				<integer>42</integer>
+				<integer>38</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>418</integer>
+			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>25</integer>
+			<integer>0</integer>
 		</dict>
 		<key>introduction.tex</key>
 		<dict>
@@ -170,7 +208,7 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>39</integer>
+				<integer>19</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -196,14 +234,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>30</integer>
+				<integer>18</integer>
 				<key>line</key>
-				<integer>12</integer>
+				<integer>86</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>66</integer>
 		</dict>
 		<key>thesis.tex</key>
 		<dict>
@@ -230,6 +268,7 @@
 		<string>method.tex</string>
 		<string>architecture.tex</string>
 		<string>experiments.tex</string>
+		<string>Changelog</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>

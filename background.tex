@@ -52,7 +52,11 @@ When using optimistic replication, there are a number of different configuration
 \subsection{Database Consistency} % (fold)
 \label{sub:consistency}
 
-For replication, different consistency guarantees can be given depending on what type of replication that is being used. In pessimistic replication, mutual consistency is guaranteed. This is used when applications doesn't tolerate any inconsistent data between replicas. Optimistic replication only guarantees eventual consistency, which means that the replicas will eventually be consistent if there no new updates are send to any replica. One problem with eventual consistency is that an application need to tolerate occasional conflicts \cite[]{saito2005}. This mean that the application needs to tolerate that it sometimes reads unstable data and that a value can be updated in the future until it is stable. A stable value is a value that is permanently stored in the database and will be consistent on all replicas.
+For replication, different consistency guarantees can be given depending on what type of replication that is being used. In pessimistic replication, mutual consistency is guaranteed. This is used when applications doesn't tolerate any inconsistent data between replicas. 
+
+Optimistic replication only guarantees eventual consistency, which means that the replicas will eventually be consistent if there no new updates are send to any replica. One example of usage for eventual consistency is an atm machine and a bank. When a customer wants to withdraw money from the atm machine, the customer doesn't want to wait for the atm machine to verify the transaction. Instead, the atm machine approves the transaction without communicating with the bank, and gives the customer his/her money. When the atm synchronizes the transaction with the bank, if there where any problems with the transaction (i.e. no money left on the account), a resolution action is performed to correct this conflict. For this given type of situation, a resolution can be to send a error message to the customer, or withdraw money from another account. 
+
+One problem with eventual consistency is that an application need to tolerate occasional conflicts \cite[]{saito2005}. This mean that the application needs to tolerate that it sometimes reads unstable data and that a value can be updated in the future until it is stable. A stable value is a value that is permanently stored in the database and will be consistent on all replicas.
 
 
 \subsection{Distributed Real-time Database Systems} % (fold)
